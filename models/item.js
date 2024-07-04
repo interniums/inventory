@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
@@ -14,7 +14,7 @@ const ItemSchema = new Schema({
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: "Category",
+    ref: 'Category',
     required: true,
   },
   price: {
@@ -25,8 +25,8 @@ const ItemSchema = new Schema({
   },
 })
 
-ItemSchema.virtual("url").get(function () {
-  return `/category/item${this._id}`
+ItemSchema.virtual('url').get(function () {
+  return `/catalog/item/${this._id}`
 })
 
-module.exports = mongoose.model("Item", ItemSchema)
+module.exports = mongoose.model('Item', ItemSchema)

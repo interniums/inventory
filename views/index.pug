@@ -2,4 +2,12 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p It`s #[em Inventory], a very basic Express website developed by Intenium.
+
+  h2 Dynamic content
+
+  p The library has the following record counts:
+
+  ul
+    li #[strong Items:] !{items_count}
+    li #[strong Categories:] !{category_count}

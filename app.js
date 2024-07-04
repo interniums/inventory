@@ -1,3 +1,6 @@
+const catalogRouter = require('./routes/catalog')
+const compression = require('compression')
+const helmet = require('helmet')
 var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
@@ -7,8 +10,8 @@ var logger = require('morgan')
 // connecting to a database
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
-const mongodb =
-  'mongodb+srv://internium:navi20172015@inventorydb.apnmdeg.mongodb.net/?retryWrites=true&w=majority&appName=inventoryDB'
+
+const mongodb = process.env.MONGODB_URI || dev_db_url
 
 main().catch((err) => console.log(err))
 async function main() {
@@ -20,6 +23,24 @@ const usersRouter = require('./routes/users')
 const catalogRouter = require('./routes/catalog')
 
 var app = express()
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      'script-src': ["'self'", 'code.jquery.com', 'cdn.jsdelivr.net'],
+    },
+  })
+)
+
+const RateLimit = require('express-rate-limit')
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 20,
+})
+app.use(limiter)
+
+app.use(compression())
+app.use(express.static(path.join(__dirname, 'public')))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

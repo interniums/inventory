@@ -20,7 +20,6 @@ async function main() {
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
-const catalogRouter = require('./routes/catalog')
 
 var app = express()
 

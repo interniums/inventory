@@ -11,7 +11,7 @@ var logger = require('morgan')
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
 
-const mongodb = process.env.MONGODB_URI || dev_db_url
+const mongodb = process.env.MONGODB_URI
 
 main().catch((err) => console.log(err))
 async function main() {
